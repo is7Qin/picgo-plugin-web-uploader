@@ -20,6 +20,7 @@ module.exports = (ctx) => {
     const jsonPath = userConfig.jsonPath
     const customHeader = userConfig.customHeader
     const customBody = userConfig.customBody
+    const customUrl = userConfig.customUrl
     try {
       let imgList = ctx.output
       for (let i in imgList) {
@@ -33,7 +34,7 @@ module.exports = (ctx) => {
         delete imgList[i].base64Image
         delete imgList[i].buffer
         if (!jsonPath) {
-          imgList[i]['imgUrl'] = body
+          imgList[i]['imgUrl'] = customUrl + body
         } else {
           body = JSON.parse(body)
           let imgUrl = body
@@ -41,7 +42,7 @@ module.exports = (ctx) => {
             imgUrl = imgUrl[field]
           }
           if (imgUrl) {
-            imgList[i]['imgUrl'] = imgUrl
+            imgList[i]['imgUrl'] = customUrl + imgUrl
           } else {
             ctx.emit('notification', {
               title: '返回解析失败',
@@ -129,6 +130,14 @@ module.exports = (ctx) => {
         required: false,
         message: '自定义Body 标准JSON(eg: {"key":"value"})',
         alias: '自定义Body'
+      },
+      {
+        name: 'customUrl',
+        type: 'input',
+        default: userConfig.customUrl,
+        required: true,
+        message: '自定义Url',
+        alias: '自定义Url'
       }
     ]
   }

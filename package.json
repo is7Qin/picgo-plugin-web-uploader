@@ -18,7 +18,7 @@
     "picgo-gui-plugin",
     "picgo-plugin"
   ],
-  "author": "ZQian",
+  "author": "ZQian,Qin",
   "license": "MIT",
   "devDependencies": {
     "eslint": "^5.0.1",
